@@ -1,17 +1,38 @@
-class Solution{
+class Solution {
     
-     public int minRefuelStops(int target, int startFuel, int[][] stations) {
-            if (startFuel >= target) return 0;
-            Queue<Integer> queue = new PriorityQueue<>((a,b) -> b-a);
-            int i = 0, n = stations.length, stops = 0, maxDistance = startFuel;
-            while (maxDistance < target) {
-                while (i < n && stations[i][0] <= maxDistance) {
-                    queue.offer(stations[i++][1]);
-                }
-                if (queue.isEmpty()) return -1;
-                maxDistance += queue.poll();
-                stops++;
+    public int minRefuelStops(int target, int startFuel, int[][] stations) {
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> (b-a)) ;
+        
+        int xcurrent = startFuel ;
+        int noofStops = 0 ;
+        
+        for ( int[] station : stations ){
+            
+            int position = station[0] ;
+            int fuel = station[1] ;
+            
+            while ( xcurrent < position ){
+                
+                if (pq.isEmpty()) return -1 ;
+                xcurrent += pq.poll() ;
+                noofStops++ ;
+                
             }
-            return stops;
+            
+            pq.offer(fuel) ;
+        }
+        
+        while (xcurrent < target){
+            if (pq.isEmpty()) return -1 ;
+            xcurrent += pq.poll() ;
+            noofStops++ ;
+        }
+        
+        return noofStops ;
+        
+        
     }
+    
+    
 }
