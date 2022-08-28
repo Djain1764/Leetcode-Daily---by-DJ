@@ -1,16 +1,41 @@
 class Solution {
-        public int[][] diagonalSort(int[][] A) {
-        int m = A.length, n = A[0].length;
-        HashMap<Integer, PriorityQueue<Integer>> d = new HashMap<>();
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                d.putIfAbsent(i - j, new PriorityQueue<>());
-                d.get(i - j).add(A[i][j]);
+    public int[][] diagonalSort(int[][] mat) {
+        
+        for ( int i = 0 ; i < mat.length ; i++ ){
+            countsort (mat, i, 0) ;
+        }
+        for ( int j = 0 ; j < mat[0].length ; j++ ){
+            countsort (mat, 0, j) ;
+        }
+        
+        return mat ;
+        
+        
+        
+    }
+    
+    public void countsort (int[][] mat, int i, int j){
+        int m = mat.length ; 
+        int n = mat[0].length ; 
+        int x = i ;
+        int y = j ;
+        int[] arr = new int[101] ;
+        
+        while ( i < m && j < n ){
+            arr[mat[i][j]]++ ;
+            i++ ;
+            j++ ;
+        }
+        i = x ;
+        j = y ;
+        for ( int k = 0 ; k < arr.length ; k++ ){
+            while (arr[k] > 0){
+                mat[i][j] = k ;
+                arr[k]-- ;
+                i++ ;
+                j++ ;
             }
         }
-        for (int i = 0; i < m; ++i)
-            for (int j = 0; j < n; ++j)
-                A[i][j] = d.get(i - j).poll();
-        return A;
+        
     }
 }
