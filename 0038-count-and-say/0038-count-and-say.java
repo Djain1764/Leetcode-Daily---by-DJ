@@ -3,27 +3,15 @@ class Solution {
         if(n == 1){
             return "1" ;
         }
-        if (n == 2){
-            return "11" ;
-        }
         String str = countAndSay(n - 1) ;
-        int c = 1 ;
+        int c = 0 ;
         String output = "" ;
-        for( int i = 1 ; i < str.length() ; i++ ){
-            if(i == str.length() - 1){
-                if(str.charAt(i) != str.charAt(i - 1)){
-                    output = output + c + str.charAt(i - 1) ;
-                    c = 1 ;
-                    output = output + c + str.charAt(i) ;
-                }else{
-                    c++ ;
-                    output = output + c + str.charAt(i) ;
-                }    
-            }else if(str.charAt(i) != str.charAt(i - 1)){
-                output = output + c + str.charAt(i - 1) ;
-                c = 1 ;
-            }else
-                c++ ;
+        for( int i = 0 ; i < str.length() ; i++ ){
+            c++ ;
+            if (i == str.length() - 1 || str.charAt(i) != str.charAt(i + 1)){
+                output = output + c + str.charAt(i) ;
+                c = 0 ;
+            }
         }
         return output ;
     }
