@@ -14,25 +14,19 @@
  * }
  */
 class Solution {
+    int sum = 0 ;
     public int sumNumbers(TreeNode root) {
-        int sum = 0 ;
-        List<Integer> list = new ArrayList<>() ;
-        sumNumbers_edited(root, list, 0) ;
-        for(int i = 0 ; i < list.size() ; i++ ){
-            sum += list.get(i) ;
-        }
+        if(root == null) return 0 ;
+        sumNumbers_edited(root, 0) ;
         return sum ;
     }
-    public void sumNumbers_edited(TreeNode root, List<Integer> list, int pathNum){
+    public void sumNumbers_edited(TreeNode root, int pathNum){
+        if(root == null )return;
         if(root.left == null && root.right == null){
-            list.add(pathNum*10 + root.val);
+            sum += pathNum*10 + root.val;
             return;
         }
-        if(root.left != null){
-            sumNumbers_edited(root.left, list, pathNum*10 + root.val);
-        }
-        if(root.right != null){
-            sumNumbers_edited(root.right, list, pathNum*10 + root.val);
-        }
+            sumNumbers_edited(root.left, pathNum*10 + root.val);
+            sumNumbers_edited(root.right, pathNum*10 + root.val);
     }
 }
